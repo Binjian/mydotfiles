@@ -146,7 +146,8 @@ _h_ decrease width    _l_ increase width
                                   magit-insert-upstream-branch-header
                                   magit-insert-push-branch-header
                                   magit-insert-tags-header
-                                  magit-insert-ignored-files))
+                                  magit-insert-ignored-files
+                                  ))
 
 (defun magit-add-current-buffer ()
   "Adds (with force) the file from the current buffer to the git repo"
