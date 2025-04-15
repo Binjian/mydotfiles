@@ -73,7 +73,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-export PYENV_ROOT="$HOME/.pyenv"
+export PYENV_ROOT="/d/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
 eval "$(pyenv virtualenv-init -)"
@@ -141,3 +141,6 @@ export PATH="$PATH:/home/x/.local/bin"
 export PATH="$PATH:/usr/local/bin"
 # add snap root
 export PATH="$PATH:/snap/bin"
+# add go path
+export PATH="$PATH:/usr/local/go/bin"
+# source ollama model path
