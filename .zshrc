@@ -73,16 +73,15 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-export PYENV_ROOT="/d/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
-eval "$(pyenv virtualenv-init -)"
+# systemd editor
+export SYSTEMD_EDITOR=vim
+
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
+plugins=(git asdf docker zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -94,11 +93,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -121,14 +120,17 @@ source $ZSH/oh-my-zsh.sh
 #export HTTP_PROXY=http://172.28.128.1:20171
 #export HTTPS_PROXY=http://172.28.128.1:20171
 source $HOME/.private_keys.zshrc
-export HTTP_PROXY=http://127.0.0.1:20171
-export HTTPS_PROXY=http://127.0.0.1:20171
+export HTTP_PROXY="http://127.0.0.1:20171"
+export HTTPS_PROXY="http://127.0.0.1:20171"
+export NO_PROXY="172.27.74.*,127.0.0.1/8"
+#export http_proxy=http://127.0.0.1:20171
+#export https_proxy=http://127.0.0.1:20171
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="$PATH:$HOME/.config/emacs/bin"
-export PATH=/usr/local/cuda-12.8/bin${PATH:+:${PATH}}
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/go/bin:${ASDF_DATA_DIR}/shims"
 # append completions to fpath
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 # initialise completions with ZSH's compinit
@@ -143,4 +145,78 @@ export PATH="$PATH:/usr/local/bin"
 export PATH="$PATH:/snap/bin"
 # add go path
 export PATH="$PATH:/usr/local/go/bin"
+
+
+export ASDF_DATA_DIR="/d/.asdf"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+export PYENV_ROOT="/d/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+eval "$(pyenv virtualenv-init -)"
 # source ollama model path
+export OLLAMA_MODELS="/v/.ollama/models"
+
+# sourcing ros2
+source /opt/ros/jazzy/setup.zsh
+export WEBOTS_HOME=/usr/local/webots
+
+## >>> conda initialize >>>
+## !! Contents within this block are managed by 'conda init' !!
+#__conda_setup="$('/home/x/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/home/x/anaconda3/etc/profile.d/conda.sh" ]; then
+#        . "/home/x/anaconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/home/x/anaconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+## <<< conda initialize <<<
+
+# start input leap 
+#input-leapc --display :0 --debug INFO -f 172.27.74.56 &
+
+
+
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
+[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/d/programs/google-cloud-sdk/path.zsh.inc' ]; then . '/d/programs/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/d/programs/google-cloud-sdk/completion.zsh.inc' ]; then . '/d/programs/google-cloud-sdk/completion.zsh.inc'; fi
+
+PATH="/home/x/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/x/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/x/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/x/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/x/perl5"; export PERL_MM_OPT;
+
+# >>> juliaup initialize >>>
+
+# !! Contents within this block are managed by juliaup !!
+
+path=('/home/x/.juliaup/bin' $path)
+export PATH
+
+# <<< juliaup initialize <<<
+
+
+export GUROBI_HOME="/d/devel/opt/gurobi1203"
+export PATH="$PATH:/d/devel/opt/gurobi1203/bin"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/d/devel/opt/gurobi1203/lib"
+export MUJOCO_DIR="/d/devel/mujoco/dist"
+export PATH="$PATH:/d/devel/mujoco/dist/bin"
+export MUJOCO_PY_MUJOCO_PATH=$MUJOCO_DIR
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$MUJOCO_DIR/bin"
+export LD_LIBRARY_PATH="$MUJOCO_DIR/lib:$LD_LIBRARY_PATH"
+#
+#source /opt/ros/jazzy/setup.zsh
+#
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(zoxide init zsh)"

@@ -176,7 +176,7 @@ _h_ decrease width    _l_ increase width
             (setq TeX-save-query nil)
             (setq TeX-show-compilation t)))
 
-(setq browse-url-browser-function 'browse-url-default-windows-browser)
+                                        ;(setq browse-url-browser-function 'browse-url-default-windows-browser)
 ;;(add-hook LaTeX-mode-hook 'xenops-mode)
 
 (use-package! websocket
@@ -421,7 +421,7 @@ _h_ decrease width    _l_ increase width
 ;;         )
 ;;        )
 ;;
-;;(setq ob-mermaid-cli-path "/c/Users/xinbinjian.sh/scoop/apps/nodejs/current/bin/mmdc")
+(setq ob-mermaid-cli-path "/d/.asdf/shims/mmdc")
 ;;
 ;;(setq org-excalidraw-directory "/d/05-doc/org/excalidraw")
 

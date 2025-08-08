@@ -1,0 +1,16 @@
+./configure \                                                                 ─╯
+    --with-native-compilation \
+    --with-pgtk \
+    --with-x-toolkit=gtk3 \
+    --with-tree-sitter \
+    --with-wide-int \
+    --with-modules \
+    --without-dbus \
+    --with-gnutls \
+    --with-mailutils \
+    --without-pop \
+    --with-cairo \
+    --with-imagemagick \
+--with-x-toolkit=gtk3 \
+--with-x-toolkit=lucid
+

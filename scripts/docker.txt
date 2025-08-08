@@ -1,0 +1,22 @@
+docker build --build-arg HTTP_PROXY="127.0.0.1:20171" \ 
+--build-arg HTTPS_PROXY="127.0.0.1:20171" \
+-t test:latest .             
+
+
+docker daemon proxy setting with host proxy
+- /etc/docker/daemon.json
+- /etc/systemd/system/docker.service.d/http-proxy.conf
+
+docker client no proxy setting!
+
+#docker build with proper proxy configuration
+
+http_proxy=http://127.0.0.1:20171 https_proxy=http://127.0.0.1:20171 docker build --build-arg http_proxy=http://127.0.0.1:20171 --build-arg https_proxy=http://127.0.0.1:20171  -f ./docker/Dockerfile.base -t lab .
+
+# docker build
+docker compose.yaml:
+use 
+- build: 
+        network: host
+or in docker build cli
+docker build *** --network host ***

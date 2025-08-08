@@ -1,0 +1,8 @@
+sudo lxc launch images:ubuntu/22.04/desktop ubuntu --vm -c nvidia.runtime=true -c limits.cp=12 -c limits.memory=32GiB --console=vga
+sudo lxc launch images:ubuntu/22.04/desktop ubuntu --vm -c nvidia.runtime=true -c limits.cp=12 -c limits.memory
+sudo lxc list                                                                                                  
+sudo lxc delete trusty-mayfly                                                                                  
+sudo lxc launch images:ubuntu/22.04/desktop ubuntu --vm -c limits.cp=12 -c limits.memory=32Gib --console=vga   
+sudo lxc exec trusty-mayfly -- ls -la                                                                          
+sudo lxc launch ubuntu:22.04                                                                                   
+sudo lxc launch ubuntu22.04 cuda -c nvidia.runtime=true                                                        
