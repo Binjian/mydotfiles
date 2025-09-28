@@ -81,7 +81,7 @@ export SYSTEMD_EDITOR=vim
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git asdf docker zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
+plugins=(git tmux asdf docker zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -206,17 +206,35 @@ export PATH
 # <<< juliaup initialize <<<
 
 
+# eval "$(ssh-agent -s)"
 export GUROBI_HOME="/d/devel/opt/gurobi1203"
 export PATH="$PATH:/d/devel/opt/gurobi1203/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/d/devel/opt/gurobi1203/lib"
 export MUJOCO_DIR="/d/devel/mujoco/dist"
-export PATH="$PATH:/d/devel/mujoco/dist/bin"
+#export PATH="$PATH:/d/devel/mujoco/dist/bin"
 export MUJOCO_PY_MUJOCO_PATH=$MUJOCO_DIR
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$MUJOCO_DIR/bin"
-export LD_LIBRARY_PATH="$MUJOCO_DIR/lib:$LD_LIBRARY_PATH"
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$MUJOCO_DIR/bin"
+#export LD_LIBRARY_PATH="$MUJOCO_DIR/lib:$LD_LIBRARY_PATH"
 #
 #source /opt/ros/jazzy/setup.zsh
 #
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 eval "$(zoxide init zsh)"
+eval "$(uv generate-shell-completion zsh)"
+
+
+# Function to update the tmux session environment with the current shell's environment
+update_tmux_env() {
+  if [ -n "$TMUX" ]; then
+    # Get all user-defined variables from the current shell
+    vars=($(export | cut -d "=" -f 1 | grep -v "^_"))
+    for var in "${vars[@]}"; do
+      # Set each variable in the tmux session environment
+      tmux set-environment -g "$var" "$(printenv "$var")"
+    done
+  fi
+}
+
+# Add the function to the precmd_functions array
+autoload -U add-zsh-hook
+add-zsh-hook precmd update_tmux_env

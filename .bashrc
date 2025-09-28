@@ -133,3 +133,4 @@ esac
 # <<< juliaup initialize <<<
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export CPU_ARCH=x86_64

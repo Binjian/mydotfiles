@@ -1,6 +1,11 @@
-Last Config Dir: /opt/ros/jazzy/share/nav2_bringup/rviz
+Last Config Dir: /home/x/devel/ros2_ws/install/share/urdf_tutorial_cpp/urdf
 Last Image Dir: ""
 Recent Configs:
+  - ./r2d2.rviz
+  - install/share/urdf_tutorial_cpp/share/urdf_tutorial_cpp/urdf/r2d2.rviz
+  - install/share/urdf_tutorial_cpp/share/urdf_tutorial_cpp/urdf/r2d2.rvi
+  - install/urdf_tutorial_cpp/share/urdf_tutorial_cpp/urdf/r2d2.rviz
+  - /opt/ros/jazzy/share/turtle_tf2_py/rviz/turtle_rviz.rviz
   - /opt/ros/jazzy/share/nav2_bringup/rviz/nav2_default_view.rviz
   - /home/x/.rviz2/default.rviz
   - /opt/ros/jazzy/share/webots_ros2_universal_robot/resource/moveit_visualization.rviz

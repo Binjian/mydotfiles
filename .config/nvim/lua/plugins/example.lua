@@ -194,4 +194,8 @@ return {
       },
     },
   },
+  -- add neovim-tmux
+  {
+    "alexghergh/nvim-tmux-navigation",
+  },
 }
