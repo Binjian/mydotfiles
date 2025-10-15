@@ -12,3 +12,8 @@
 	directory = /d/llm-srv/ollama_project_v1
 [lfs "https://10.2.2.10/AdvancedResearch/xinbinjian/mujoco_ros.git/info/lfs"]
 	locksverify = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
