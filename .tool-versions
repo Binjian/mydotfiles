@@ -1,9 +1,10 @@
 nodejs 23.11.0
-git 2.49.0
+git 2.50.0
 java adoptopenjdk-24.0.0+36
 cmake 4.0.2
 lua 5.1.5
-rust 1.87.0
+rust 1.90.0
 ruby 3.2.3
 php 8.4.11
 glab 1.68.0
+golang 1.25.3
