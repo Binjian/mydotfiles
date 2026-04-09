@@ -25,7 +25,6 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
 # >>> juliaup initialize >>>
 
@@ -41,3 +40,4 @@ case ":$PATH:" in
 esac
 
 # <<< juliaup initialize <<<
+. "$HOME/.cargo/env"
