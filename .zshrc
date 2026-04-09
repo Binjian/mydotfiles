@@ -146,15 +146,19 @@ export PATH="$PATH:/snap/bin"
 # add go path
 export PATH="$PATH:/usr/local/go/bin"
 
+# rust
+export PATH="$PATH:$HOME/.cargo/bin"
+. "$HOME/.cargo/env"           
 
-export ASDF_DATA_DIR="/d/.asdf"
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 export PYENV_ROOT="/d/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - zsh)"
 eval "$(pyenv virtualenv-init -)"
 # source ollama model path
 export OLLAMA_MODELS="/v/.ollama/models"
+
+export ASDF_DATA_DIR="/d/.asdf"
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # sourcing ros2
 source /opt/ros/jazzy/setup.zsh
@@ -222,6 +226,8 @@ export MUJOCO_PY_MUJOCO_PATH=$MUJOCO_DIR
 eval "$(zoxide init zsh)"
 eval "$(uv generate-shell-completion zsh)"
 
+export UV_CACHE_DIR="/v/.cache/uv"
+
 
 # Function to update the tmux session environment with the current shell's environment
 update_tmux_env() {
@@ -238,3 +244,7 @@ update_tmux_env() {
 # Add the function to the precmd_functions array
 autoload -U add-zsh-hook
 add-zsh-hook precmd update_tmux_env
+export DISPLAY=:1
+
+export CYCLONEDDS_HOME="/d/devel/misc/cyclonedds/install"
+export UV_EXTRA_INDEX_URL="https://pypi.nvidia.com"
