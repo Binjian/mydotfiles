@@ -152,6 +152,17 @@ export PATH="$PATH:$HOME/.cargo/bin"
 
 export PYENV_ROOT="/d/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+
+# Some GUI-launched shells inherit stale pyenv/conda markers from the desktop
+# session. Clear them so Powerlevel10k reflects the actual current shell state.
+if [[ ${PYENV_VERSION-} == system ]]; then
+  unset PYENV_VERSION
+fi
+if [[ ${CONDA_SHLVL-0} == 0 ]]; then
+  unset CONDA_DEFAULT_ENV CONDA_PREFIX CONDA_PREFIX_1 CONDA_PREFIX_2
+  unset CONDA_PROMPT_MODIFIER PYENV_VIRTUAL_ENV VIRTUAL_ENV VIRTUAL_ENV_PROMPT
+fi
+
 eval "$(pyenv init - zsh)"
 eval "$(pyenv virtualenv-init -)"
 # source ollama model path
