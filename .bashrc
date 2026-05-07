@@ -115,7 +115,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi
 
 # >>> juliaup initialize >>>
 
@@ -134,3 +133,4 @@ esac
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export CPU_ARCH=x86_64
+. "$HOME/.cargo/env"
