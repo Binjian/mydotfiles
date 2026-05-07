@@ -1,41 +1,47 @@
 return {
-  "kkrampis/codex.nvim",
+  "rhart92/codex.nvim",
   lazy = true,
-  cmd = {
-    "Codex",
-    "CodexToggle",
-    "Codex",
-    "CodexFocus",
-    "CodexClose",
-    "CodexClearInput",
-    "CodexSendSelection",
-    "CodexSendFile",
-    "CodexMentionFile",
-    "CodexMentionDirectory",
-    "CodexResume",
-  }, -- Optional: Load only on command execution
   keys = {
     {
-      "<leader>cc", -- Change this to your preferred keybinding
+      "<leader>co",
+      function()
+        require("codex").open()
+      end,
+      desc = "Codex: Open",
+      mode = "n",
+    },
+    {
+      "<leader>cq",
+      function()
+        require("codex").close()
+      end,
+      desc = "Codex: Close",
+      mode = "n",
+    },
+    {
+      "<leader>cc",
       function()
         require("codex").toggle()
       end,
-      desc = "Toggle Codex popup or side-panel",
+      desc = "Codex: Toggle",
       mode = { "n", "t" },
+    },
+    {
+      "<leader>cs",
+      function()
+        require("codex").actions.send_selection()
+      end,
+      desc = "Codex: Send selection",
+      mode = "v",
     },
   },
   opts = {
-    keymaps = {
-      toggle = nil, -- Keybind to toggle Codex window (Disabled by default, watch out for conflicts)
-      quit = "<C-q>", -- Keybind to close the Codex window (default: Ctrl + q)
-    }, -- Disable internal default keymap (<leader>cc -> :CodexToggle)
-    border = "rounded", -- Options: 'single', 'double', or 'rounded'
-    width = 0.3, -- Width of the floating window (0.0 to 1.0)
-    height = 0.8, -- Height of the floating window (0.0 to 1.0)
-    model = nil, -- Optional: pass a string to use a specific model (e.g., 'o3-mini')
-    autoinstall = true, -- Automatically install the Codex CLI if not found
-    panel = true, -- Open Codex in a side-panel (vertical split) instead of floating window
-    use_buffer = false, -- Capture Codex stdout into a normal buffer instead of a terminal buffer
+    split = "vertical",
+    size = 0.3,
+    codex_cmd = { "codex" },
+    focus_after_send = false,
+    log_level = "warn",
+    autostart = false,
   },
   config = function(_, opts)
     require("codex").setup(opts)
