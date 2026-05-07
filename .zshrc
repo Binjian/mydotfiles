@@ -226,9 +226,9 @@ export PATH
 export GUROBI_HOME="/d/devel/opt/gurobi1203"
 export PATH="$PATH:/d/devel/opt/gurobi1203/bin"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/d/devel/opt/gurobi1203/lib"
-export MUJOCO_DIR="/d/devel/mujoco/dist"
+#export MUJOCO_DIR="/d/devel/mujoco/dist"
 #export PATH="$PATH:/d/devel/mujoco/dist/bin"
-export MUJOCO_PY_MUJOCO_PATH=$MUJOCO_DIR
+#export MUJOCO_PY_MUJOCO_PATH=$MUJOCO_DIR
 #export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$MUJOCO_DIR/bin"
 #export LD_LIBRARY_PATH="$MUJOCO_DIR/lib:$LD_LIBRARY_PATH"
 #
