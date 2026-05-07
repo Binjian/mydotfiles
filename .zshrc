@@ -122,7 +122,8 @@ fi
 source $HOME/.private_keys.zshrc
 export HTTP_PROXY="http://127.0.0.1:20171"
 export HTTPS_PROXY="http://127.0.0.1:20171"
-export NO_PROXY="172.27.74.*,127.0.0.1/8"
+export NO_PROXY="172.27.74.16,localhost,127.0.0.1"
+export no_proxy="172.27.74.16,localhost,127.0.0.1"
 #export http_proxy=http://127.0.0.1:20171
 #export https_proxy=http://127.0.0.1:20171
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
