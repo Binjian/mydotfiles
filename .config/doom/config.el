@@ -611,3 +611,20 @@ _h_ decrease width    _l_ increase width
 ;;          '(unbind-key "C-c h" jupyter-org-interaction-mode-map)))
 ;;
 ;;(setq org-ai-openai-api-token (getenv "OPENAI_ORG_AI_KEY"))
+;;(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+;;                         ("melpa" . "http://melpa.milkbox.net/packages/"))))
+(push (substitute-in-file-name "path-to-ztree-directory") load-path)
+(require 'ztree)
+(use-package! magit-lfs
+  :ensure t
+  :pin melpa
+  :after magit
+  :config
+  (require 'magit-lfs))
+
+(use-package! ai-code
+  :config
+  (ai-code-set-backend 'codex)
+  ;; Optional: use a narrower transient menu on smaller frames
+  ;; (setq ai-code-menu-layout 'two-columns)
+  (global-set-key (kbd "C-c a") #'ai-code-menu))
