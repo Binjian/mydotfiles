@@ -1,7 +1,19 @@
 return {
   "kkrampis/codex.nvim",
   lazy = true,
-  cmd = { "Codex", "CodexToggle" }, -- Optional: Load only on command execution
+  cmd = {
+    "Codex",
+    "CodexToggle",
+    "Codex",
+    "CodexFocus",
+    "CodexClose",
+    "CodexClearInput",
+    "CodexSendSelection",
+    "CodexSendFile",
+    "CodexMentionFile",
+    "CodexMentionDirectory",
+    "CodexResume",
+  }, -- Optional: Load only on command execution
   keys = {
     {
       "<leader>cc", -- Change this to your preferred keybinding
@@ -25,4 +37,7 @@ return {
     panel = true, -- Open Codex in a side-panel (vertical split) instead of floating window
     use_buffer = false, -- Capture Codex stdout into a normal buffer instead of a terminal buffer
   },
+  config = function(_, opts)
+    require("codex").setup(opts)
+  end,
 }
