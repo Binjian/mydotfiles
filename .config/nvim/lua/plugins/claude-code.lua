@@ -4,6 +4,10 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    config = function()
+      require("claude-code").setup()
+    end,
+    --[[
     cmd = {
       "ClaudeCode",
       "ClaudeCodeContinue",
@@ -49,5 +53,6 @@ return {
         scrolling = true,
       },
     },
+]]
   },
 }
