@@ -36,7 +36,7 @@
       doom-symbol-font (font-spec :family "Iosevka NF")
       doom-variable-pitch-font (font-spec :family "Iosevka NF" :size 14 :weight 'extra-bold))
 
-(setq use-default-font-for-symbolsi nil) 
+(setq use-default-font-for-symbols nil) 
 
 (defun my-cjk-font()
   (dolist (charset '(kana han cjk-misc hangul kanbun symbol bopomofo))
