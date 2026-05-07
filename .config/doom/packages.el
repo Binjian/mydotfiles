@@ -206,3 +206,11 @@
 ;;
 ;;(package! sound-wav
 ;;  :recipe (:host github :repo "emacsorphanage/sound-wav"))
+(package! ztree
+  :recipe (:host codeberg :repo "fourier/ztree"))
+
+(package! magit-lfs)
+
+(package! ai-code-interface.el
+  :recipe (:host github :repo "Binjian/ai-code-interface.el")
+  :pin "98b195c7b504adfa767aec9a39506450b6b0828a")
