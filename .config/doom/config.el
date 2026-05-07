@@ -335,7 +335,7 @@ _h_ decrease width    _l_ increase width
 
                                         ; START TABS CONFIG
 ;; Create a variable for our preferred tab width
-(setq custom-tab-width 4)
+(setq custom-tab-width 2)
 
 (setq centaur-tabs-icon-type 'nerd-icons)
 
