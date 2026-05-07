@@ -6,6 +6,7 @@ return {
         "ninja",
         "rst",
         "bash",
+        "css",
         "html",
         "javascript",
         "latex",
@@ -16,9 +17,13 @@ return {
         "python",
         "query",
         "regex",
+        "scss",
+        "svelte",
+        "typst",
         "tsx",
         "typescript",
         "vim",
+        "vue",
         "yaml",
       })
       opts.ensure_installed = vim.list.unique(opts.ensure_installed)
