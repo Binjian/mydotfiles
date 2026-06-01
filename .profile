@@ -41,3 +41,7 @@ esac
 
 # <<< juliaup initialize <<<
 . "$HOME/.cargo/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/x/.local/bin:$PATH"

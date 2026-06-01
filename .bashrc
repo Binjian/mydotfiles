@@ -134,3 +134,7 @@ esac
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export CPU_ARCH=x86_64
 . "$HOME/.cargo/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/x/.local/bin:$PATH"
