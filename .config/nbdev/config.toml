@@ -1,0 +1,3 @@
+[tool.nbdev]
+clear_all = false
+jupyter_hooks = false
