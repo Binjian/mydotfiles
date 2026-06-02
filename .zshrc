@@ -173,8 +173,8 @@ export ASDF_DATA_DIR="/d/.asdf"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 # sourcing ros2
-source /opt/ros/jazzy/setup.zsh
-export WEBOTS_HOME=/usr/local/webots
+#source /opt/ros/jazzy/setup.zsh
+#export WEBOTS_HOME=/usr/local/webots
 
 ## >>> conda initialize >>>
 ## !! Contents within this block are managed by 'conda init' !!
