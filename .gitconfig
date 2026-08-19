@@ -26,6 +26,8 @@
 	prompt = false
 [pull]
 	rebase = true
+[push]
+	recurseSubmodules = on-demand
 [diff]
 	algorithm = histogram
 [filter "lfs"]
@@ -36,3 +38,8 @@
 [lfs]
 	basictransferonly = true
 	autoDetect = true
+[submodule]
+	recurse = true
+[alias]
+	pushall = "!f() { local rc=0; local r; for r in lab personal; do echo \"==> pushing $r\"; git push --recurse-submodules=on-demand \"$r\" \"$@\" || rc=1; done; return $rc; }; f"
+	pushall-fast = "!f() { local r; for r in lab personal; do echo \"==> pushing $r\"; git push --recurse-submodules=on-demand \"$r\" \"$@\"; done; }; f"
