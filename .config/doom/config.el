@@ -624,6 +624,11 @@ _h_ decrease width    _l_ increase width
 
 (use-package! ai-code
   :config
+  ;; The shell PATH inherited by GUI Emacs can put the asdf `codex' shim
+  ;; before the standalone CLI.  That shim exits 126 when no Node.js version
+  ;; is selected, so bypass PATH lookup for AI Code sessions.
+  (setq ai-code-codex-cli-program
+        (expand-file-name "~/.local/bin/codex"))
   (ai-code-set-backend 'codex)
   ;; Optional: use a narrower transient menu on smaller frames
   ;; (setq ai-code-menu-layout 'two-columns)
