@@ -1,0 +1,11 @@
+new_tab fleet
+cd /d/devel/sim/gear-reducer
+launch cs
+
+new_tab focus
+cd /d/devel/sim/gear-reducer
+launch toad
+
+new_tab review
+cd ~/projects/myapp
+launch zsh
