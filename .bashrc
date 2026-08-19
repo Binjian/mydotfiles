@@ -128,6 +128,8 @@ case ":$PATH:" in
         export PATH=/home/x/.juliaup/bin${PATH:+:${PATH}}
         ;;
 esac
+# Tab completion for juliaup and julia channel selection
+[ -f "/home/x/.julia/juliaup/completions/bash.sh" ] && source "/home/x/.julia/juliaup/completions/bash.sh"
 
 # <<< juliaup initialize <<<
 
@@ -138,3 +140,5 @@ export CPU_ARCH=x86_64
 
 # Added by Antigravity CLI installer
 export PATH="/home/x/.local/bin:$PATH"
+
+. "$HOME/.local/share/../bin/env"
