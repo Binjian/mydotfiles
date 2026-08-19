@@ -45,3 +45,5 @@ esac
 
 # Added by Antigravity CLI installer
 export PATH="/home/x/.local/bin:$PATH"
+
+. "$HOME/.local/share/../bin/env"
