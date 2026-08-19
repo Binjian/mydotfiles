@@ -122,8 +122,8 @@ fi
 source $HOME/.private_keys.zshrc
 export HTTP_PROXY="http://127.0.0.1:20171"
 export HTTPS_PROXY="http://127.0.0.1:20171"
-export NO_PROXY="172.27.74.16,localhost,127.0.0.1"
-export no_proxy="172.27.74.16,localhost,127.0.0.1"
+export NO_PROXY="172.27.74.16,localhost,127.0.0.1,10.2.2.0/24"
+export no_proxy="172.27.74.16,localhost,127.0.0.1,10.2.2.0/24"
 #export http_proxy=http://127.0.0.1:20171
 #export https_proxy=http://127.0.0.1:20171
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -172,9 +172,11 @@ export OLLAMA_MODELS="/v/.ollama/models"
 export ASDF_DATA_DIR="/d/.asdf"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 # sourcing ros2
-#source /opt/ros/jazzy/setup.zsh
-#export WEBOTS_HOME=/usr/local/webots
+# source /opt/ros/jazzy/setup.zsh
+export WEBOTS_HOME=/usr/local/webots
 
 ## >>> conda initialize >>>
 ## !! Contents within this block are managed by 'conda init' !!
@@ -218,6 +220,8 @@ PERL_MM_OPT="INSTALL_BASE=/home/x/perl5"; export PERL_MM_OPT;
 
 path=('/home/x/.juliaup/bin' $path)
 export PATH
+# Tab completion for juliaup and julia channel selection
+[ -f "/home/x/.julia/juliaup/completions/zsh.zsh" ] && source "/home/x/.julia/juliaup/completions/zsh.zsh"
 
 # <<< juliaup initialize <<<
 
@@ -239,6 +243,7 @@ eval "$(zoxide init zsh)"
 eval "$(uv generate-shell-completion zsh)"
 
 export UV_CACHE_DIR="/v/.cache/uv"
+export UV_LINK_MODE=copy
 
 
 # Function to update the tmux session environment with the current shell's environment
@@ -256,7 +261,6 @@ update_tmux_env() {
 # Add the function to the precmd_functions array
 autoload -U add-zsh-hook
 add-zsh-hook precmd update_tmux_env
-export DISPLAY=:1
 
 export CYCLONEDDS_HOME="/d/devel/misc/cyclonedds/install"
 export UV_EXTRA_INDEX_URL="https://pypi.nvidia.com"
@@ -268,3 +272,5 @@ export NVM_DIR="$HOME/.config/nvm"
 
 # Added by Antigravity CLI installer
 export PATH="/home/x/.local/bin:$PATH"
+
+. "$HOME/.local/share/../bin/env"
