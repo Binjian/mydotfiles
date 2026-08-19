@@ -214,3 +214,9 @@
 (package! ai-code-interface.el
   :recipe (:host github :repo "Binjian/ai-code-interface.el")
   :pin "98b195c7b504adfa767aec9a39506450b6b0828a")
+
+(package! catpuccin-theme
+  :recipe (:host github :repo "catppuccin/emacs"))
+
+(package! claude-code-ide
+  :recipe (:host github :repo "manzaltu/claude-code-ide.el"))

@@ -55,7 +55,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'leuven-dark)
+;;(setq doom-theme 'leuven-dark)
+(setq doom-theme 'catppuccin)
 
 (defhydra doom-window-resize-hydra (:hint nil)
   "
@@ -153,7 +154,7 @@ _h_ decrease width    _l_ increase width
 (setq org-tag-alist '(("battery" . ?b) ("veos" . ?v) ("simulation" . ?s) ("research" . ?r)))
 
 ;; set org-roam directory
-(setq org-roam-directory (concat (getenv "HOME") "/.org.d/roam"))
+;;(setq org-roam-directory (concat (getenv "HOME") "/.org.d/roam"))
 
 
 (setq org-element-use-cache nil)
@@ -179,20 +180,20 @@ _h_ decrease width    _l_ increase width
                                         ;(setq browse-url-browser-function 'browse-url-default-windows-browser)
 ;;(add-hook LaTeX-mode-hook 'xenops-mode)
 
-(use-package! websocket
-  :after org-roam2)
-
-(use-package! org-roam-ui
-  :after org-roam2
-  ;;  :hook (after-init . org-roam-ui-mode)
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-completion-everywhere t
-        org-roam-ui-open-on-start t))
-(setq org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿"))
-(setq org-superstar-item-bullet-alist '((?- . "•") (?+ . "☞") (?* . "★")))
+;;(use-package! websocket
+;;  :after org-roam2)
+;;
+;;(use-package! org-roam-ui
+;;  :after org-roam2
+;;  ;;  :hook (after-init . org-roam-ui-mode)
+;;  :config
+;;  (setq org-roam-ui-sync-theme t
+;;        org-roam-ui-follow t
+;;        org-roam-ui-update-on-save t
+;;        org-roam-completion-everywhere t
+;;        org-roam-ui-open-on-start t))
+;;(setq org-superstar-headline-bullets-list '("⁖" "◉" "○" "✸" "✿"))
+;;(setq org-superstar-item-bullet-alist '((?- . "•") (?+ . "☞") (?* . "★")))
 
 (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
 
@@ -384,6 +385,24 @@ _h_ decrease width    _l_ increase width
 (require 'logview) ;; if you want interactive shell support, include:
 (setq doom-themes-neotree-file-icons t)
 
+(defun binjian/prepend-to-path (dir)
+  "Prepend DIR to `PATH' and `exec-path' when it exists."
+  (let ((dir (expand-file-name dir)))
+    (when (file-directory-p dir)
+      (setenv "PATH" (concat dir path-separator (or (getenv "PATH") "")))
+      (add-to-list 'exec-path dir))))
+
+(let ((asdf-dir (or (and (getenv "ASDF_DATA_DIR")
+                         (not (string-empty-p (getenv "ASDF_DATA_DIR")))
+                         (getenv "ASDF_DATA_DIR"))
+                    "~/.asdf")))
+  (binjian/prepend-to-path (expand-file-name "bin" asdf-dir))
+  (binjian/prepend-to-path (expand-file-name "shims" asdf-dir)))
+(binjian/prepend-to-path "~/go/bin")
+;; Keep user-installed standalone CLIs ahead of stale asdf shims.  Vterm
+;; resolves commands through the PATH environment rather than `exec-path'.
+(binjian/prepend-to-path "~/.local/bin")
+
 (setq tramp-default-method "ssh")
 (after! tramp
   (setenv "SHELL" "/bin/zsh")
@@ -523,6 +542,10 @@ _h_ decrease width    _l_ increase width
 ;;(setq lsp-headerline-breadcrumb-mode-hook 'flyspell-mode-off)
 (setq lsp-headerline-breadcrumb-enable-diagnostics nil)
 
+(after! lsp-pylsp
+  (setq lsp-pylsp-server-command
+        '("/d/.pyenv/versions/anaconda3-2024.10-1/bin/pylsp")))
+
 
 (after! org-download
   (setq org-download-method 'directory
@@ -624,12 +647,50 @@ _h_ decrease width    _l_ increase width
 
 (use-package! ai-code
   :config
-  ;; The shell PATH inherited by GUI Emacs can put the asdf `codex' shim
-  ;; before the standalone CLI.  That shim exits 126 when no Node.js version
-  ;; is selected, so bypass PATH lookup for AI Code sessions.
+  (ai-code-set-backend 'codex)
+  ;; Use the standalone launcher explicitly so vterm cannot select the stale
+  ;; /d/.asdf/shims/codex entry (which exits 126 when no Node version is set).
   (setq ai-code-codex-cli-program
         (expand-file-name "~/.local/bin/codex"))
-  (ai-code-set-backend 'codex)
   ;; Optional: use a narrower transient menu on smaller frames
   ;; (setq ai-code-menu-layout 'two-columns)
   (global-set-key (kbd "C-c a") #'ai-code-menu))
+
+;; Evil normally consumes C-v for visual-block mode, so Codex running inside
+;; vterm never receives its native "paste image from clipboard" shortcut.
+(defun +codex-vterm-paste-image ()
+  "Forward C-v to Codex CLI buffers and preserve it elsewhere."
+  (interactive)
+  (if (string-prefix-p "*codex[" (buffer-name))
+      (vterm-send-key "v" nil nil t)
+    (if (memq evil-state '(normal visual))
+        (call-interactively #'evil-visual-block)
+      (vterm-send-key "v" nil nil t))))
+
+(after! vterm
+  (evil-define-key '(normal insert visual) vterm-mode-map
+    (kbd "C-v") #'+codex-vterm-paste-image))
+
+(use-package! claude-code-ide
+  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
+
+;;(use-package! claude-code-ide
+;;  ;;:vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+;;  :defer t
+;;  :init
+;;  ;; Map convenient Evil/Doom leader bindings
+;;  ;;:bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+;;  (map! :leader
+;;        (:prefix-map ("a" . "actions/AI")
+;;                     (:prefix ("c" . "Claude")
+;;                      :desc "Toggle Claude Code IDE" "t" #'claude-code-ide-toggle
+;;                      :desc "Toggle recent window"   "r" #'claude-code-ide-toggle-recent
+;;                      :desc "Show debug buffer"      "d" #'claude-code-ide-show-debug
+;;                      :desc "Clear debug buffer"     "c" #'claude-code-ide-clear-debug)))
+;;  :config
+;;  (claude-code-ide-emacs-tools-setup) ; Optionally enable Emacs MCP tools
+;;  ;; Optional: specify custom executable path if npm isn't global
+;;  ;; (setq claude-code-ide-cli-path "/usr/local/bin/claude")
+;;  )
