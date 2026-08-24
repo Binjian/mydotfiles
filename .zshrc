@@ -81,7 +81,12 @@ export SYSTEMD_EDITOR=vim
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git tmux asdf docker zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting zsh-autocomplete)
+plugins=(git tmux asdf docker zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlighting)
+
+# zsh-autocomplete requires terminal key capabilities that TERM=dumb does not
+# provide. Loading it there prints an error during Powerlevel10k instant prompt.
+zmodload -F zsh/terminfo p:terminfo
+[[ -n ${terminfo[kcbt]-} ]] && plugins+=(zsh-autocomplete)
 
 source $ZSH/oh-my-zsh.sh
 
