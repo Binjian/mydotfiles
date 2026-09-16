@@ -125,8 +125,7 @@ fi
 #export HTTP_PROXY=http://172.28.128.1:20171
 #export HTTPS_PROXY=http://172.28.128.1:20171
 source $HOME/.private_keys.zshrc
-export HTTP_PROXY="http://127.0.0.1:20171"
-export HTTPS_PROXY="http://127.0.0.1:20171"
+unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
 export NO_PROXY="172.27.74.16,localhost,127.0.0.1,10.2.2.0/24"
 export no_proxy="172.27.74.16,localhost,127.0.0.1,10.2.2.0/24"
 #export http_proxy=http://127.0.0.1:20171
@@ -203,10 +202,6 @@ export WEBOTS_HOME=/usr/local/webots
 
 
 
-# To customize prompt, run `p10k configure` or edit ~/dotfiles/.p10k.zsh.
-[[ ! -f ~/dotfiles/.p10k.zsh ]] || source ~/dotfiles/.p10k.zsh
-
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/d/programs/google-cloud-sdk/path.zsh.inc' ]; then . '/d/programs/google-cloud-sdk/path.zsh.inc'; fi
 
@@ -279,3 +274,10 @@ export NVM_DIR="$HOME/.config/nvm"
 export PATH="/home/x/.local/bin:$PATH"
 
 . "$HOME/.local/share/../bin/env"
+
+# >>> Codex installer >>>
+export PATH="/home/x/.local/bin:$PATH"
+# <<< Codex installer <<<
+
+# Lean toolchain
+export PATH="$HOME/.elan/bin:$PATH"
