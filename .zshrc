@@ -1,5 +1,6 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
+#
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
@@ -133,7 +134,6 @@ export no_proxy="172.27.74.16,localhost,127.0.0.1,10.2.2.0/24"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="$PATH:$HOME/.config/emacs/bin"
-export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$HOME/go/bin:${ASDF_DATA_DIR}/shims"
 # append completions to fpath
@@ -175,6 +175,11 @@ export OLLAMA_MODELS="/v/.ollama/models"
 
 export ASDF_DATA_DIR="/d/.asdf"
 export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+# Real CUDA toolkit ahead of the pyenv shim: the shim's active version has no
+# nvcc and prints noisy "command not found" notes (e.g. when torch.compile
+# probes `nvcc --version`). Conda envs still shadow this when activated.
+export PATH="/usr/local/cuda/bin:$PATH"
 
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
