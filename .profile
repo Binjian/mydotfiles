@@ -47,3 +47,5 @@ esac
 export PATH="/home/x/.local/bin:$PATH"
 
 . "$HOME/.local/share/../bin/env"
+
+export PATH="$HOME/.elan/bin:$PATH"
