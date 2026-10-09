@@ -6,13 +6,30 @@ return {
         "<leader>cf",
         function()
           local buf = vim.api.nvim_get_current_buf()
-          local ft = vim.filetype.match({ filename = vim.api.nvim_buf_get_name(buf) })
-          if vim.bo[buf].filetype ~= "bigfile" or (ft ~= "json" and ft ~= "jsonc") then
+          local ft = vim.bo[buf].filetype
+          if ft == "bigfile" then
+            ft = vim.filetype.match({ filename = vim.api.nvim_buf_get_name(buf) })
+          end
+          if ft ~= "json" and ft ~= "jsonc" then
             LazyVim.format({ force = true })
             return
           end
-          vim.notify("Formatting large JSON…", vim.log.levels.INFO, { title = "Format" })
-          require("conform").format({ bufnr = buf, async = true, timeout_ms = 120000 }, function(err, changed)
+          vim.notify("Formatting JSON…", vim.log.levels.INFO, { title = "Format" })
+          require("conform").format({
+            bufnr = buf,
+            formatters = { "prettier" },
+            lsp_format = "never",
+            -- Format the entire JSON document even from visual mode.
+            range = {
+              start = { 1, 0 },
+              ["end"] = {
+                vim.api.nvim_buf_line_count(buf),
+                #vim.api.nvim_buf_get_lines(buf, -2, -1, false)[1],
+              },
+            },
+            async = true,
+            timeout_ms = 120000,
+          }, function(err, changed)
             vim.schedule(function()
               if err then
                 vim.notify(tostring(err), vim.log.levels.ERROR, { title = "Format" })
@@ -40,6 +57,8 @@ return {
           return {}
         end,
       })
+      opts.formatters = opts.formatters or {}
+      opts.formatters.prettier = opts.formatters.prettier or {}
       local prettier = opts.formatters.prettier
       -- Expand JSON objects and arrays, including short arrays, on separate lines.
       local append_args = prettier.append_args
@@ -50,8 +69,15 @@ return {
         if ft == "bigfile" then
           ft = vim.filetype.match({ filename = ctx.filename })
         end
-        if ft == "json" then
-          vim.list_extend(args, { "--parser", "json-stringify", "--tab-width", "2", "--use-tabs", "false" })
+        if ft == "json" or ft == "jsonc" then
+          vim.list_extend(args, {
+            "--parser", ft == "json" and "json-stringify" or "json",
+            "--tab-width", "2", "--use-tabs", "false",
+            -- JSONC needs a narrow width to expand short arrays while preserving comments.
+            "--print-width", "1",
+            -- Explicit formatting must also work for gitignored data files.
+            "--ignore-path", "/dev/null",
+          })
         end
         return args
       end
