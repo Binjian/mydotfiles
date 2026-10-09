@@ -41,6 +41,20 @@ return {
         end,
       })
       local prettier = opts.formatters.prettier
+      -- Expand JSON objects and arrays, including short arrays, on separate lines.
+      local append_args = prettier.append_args
+      prettier.append_args = function(self, ctx)
+        local args = type(append_args) == "function" and append_args(self, ctx) or append_args or {}
+        args = vim.deepcopy(args)
+        local ft = vim.bo[ctx.buf].filetype
+        if ft == "bigfile" then
+          ft = vim.filetype.match({ filename = ctx.filename })
+        end
+        if ft == "json" then
+          vim.list_extend(args, { "--parser", "json-stringify", "--tab-width", "2", "--use-tabs", "false" })
+        end
+        return args
+      end
       local condition = prettier.condition
       prettier.condition = function(self, ctx)
         if vim.bo[ctx.buf].filetype == "bigfile" then
