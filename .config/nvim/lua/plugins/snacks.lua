@@ -2,6 +2,13 @@ return {
   {
     "snacks.nvim",
     opts = {
+      picker = {
+        sources = {
+          explorer = {
+            ignored = true,
+          },
+        },
+      },
       image = {
         force = true,
       },
