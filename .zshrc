@@ -126,11 +126,13 @@ fi
 #export HTTP_PROXY=http://172.28.128.1:20171
 #export HTTPS_PROXY=http://172.28.128.1:20171
 source $HOME/.private_keys.zshrc
-unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
+#unset HTTP_PROXY HTTPS_PROXY ALL_PROXY http_proxy https_proxy all_proxy
+export http_proxy=http://127.0.0.1:20171
+export HTTP_PROXY=http://127.0.0.1:20171
+export https_proxy=http://127.0.0.1:20171
+export HTTPS_PROXY=http://127.0.0.1:20171
 export NO_PROXY="172.27.74.16,localhost,127.0.0.1,10.2.2.0/24"
 export no_proxy="172.27.74.16,localhost,127.0.0.1,10.2.2.0/24"
-#export http_proxy=http://127.0.0.1:20171
-#export https_proxy=http://127.0.0.1:20171
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 export PATH="$PATH:$HOME/.config/emacs/bin"
@@ -286,3 +288,8 @@ export PATH="/home/x/.local/bin:$PATH"
 
 # Lean toolchain
 export PATH="$HOME/.elan/bin:$PATH"
+
+precmd() {
+	print -Pn "\e]0;%m\a"
+}
+  
